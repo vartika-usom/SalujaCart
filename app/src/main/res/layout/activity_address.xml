@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey"
+    tools:context=".AddressActivity">
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        card_view:cardCornerRadius="4dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/addressName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_test"
+                android:hint="Full Name"
+                android:padding="10dp"
+                android:inputType="textPersonName"
+                android:singleLine="true"
+                android:focusableInTouchMode="true"/>
+
+            <EditText
+                android:id="@+id/addressMobileNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/addressName"
+                android:background="@drawable/edit_test"
+                android:hint="Mobile Number"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:inputType="phone"
+                android:maxLength="10"/>
+
+            <EditText
+                android:id="@+id/addressPincode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/addressMobileNumber"
+                android:background="@drawable/edit_test"
+                android:hint="Pincode"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:inputType="number"
+                android:maxLength="6"/>
+            <EditText
+                android:id="@+id/addressCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/addressPincode"
+                android:background="@drawable/edit_test"
+                android:hint="Town/City"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:inputType="textPostalAddress"/>
+            <EditText
+                android:id="@+id/stateAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/addressCity"
+                android:background="@drawable/edit_test"
+                android:hint="State"
+                android:padding="10dp"
+                android:inputType="text"
+                android:singleLine="true" />
+            <EditText
+                android:id="@+id/mainAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/stateAddress"
+                android:background="@drawable/edit_test"
+                android:hint="Flat, House no., Building, Company, Apartment"
+                android:padding="10dp"
+                android:singleLine="true" />
+            <EditText
+                android:id="@+id/areaAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/mainAddress"
+                android:singleLine="true"
+                android:background="@drawable/edit_test"
+                android:hint="Area, Colony, Street, Sector, Village"
+                android:padding="10dp" />
+            <EditText
+                android:id="@+id/landMark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/areaAddress"
+                android:background="@drawable/edit_test"
+                android:hint="Landmark e.g. near metro hospital"
+                android:padding="10dp"
+                android:singleLine="true"/>
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Deliver to this address"
+        android:background="@color/seeGreen"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="5dp"
+        android:id ="@+id/deliverToAddress"
+        android:layout_marginLeft="10dp"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"/>
+
+</RelativeLayout>

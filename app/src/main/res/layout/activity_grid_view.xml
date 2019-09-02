@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/gridRelativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E3E4E6"
+    tools:context=".GridViewActivity"
+    >
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/toolbarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/searchToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <ImageButton
+                android:id="@+id/backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="13dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="25"
+                android:background="@drawable/ic_arrow_back_black_24dp"
+                android:elevation="1dp"
+                android:scaleType="fitXY" />
+
+            <RelativeLayout
+                android:id="@+id/relativeSearch"
+                android:layout_width="210dp"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/cityNametext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:hint="@string/search_text_hint"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+                    android:textColor="@android:color/black"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/totalItemsGrid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/cityNametext"
+                    android:hint="@string/search_text_hint"
+                    android:textColor="@android:color/black"
+                    android:textSize="12dp" />
+
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/searchInGrid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_search_black_24dp" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_marginLeft="20dp">
+
+                <ImageButton
+                    android:id="@+id/shoppingCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@null"
+                    android:src="@drawable/ic_shopping_cart_black_24dp" />
+
+                <TextView
+                    android:id="@+id/cartCountGrid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/circle"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <GridView
+        android:id="@+id/gridview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbarLayout"
+        android:fitsSystemWindows="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center"
+        android:horizontalSpacing="1dp"
+        android:numColumns="2"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="1dp" />
+
+    <RelativeLayout
+        android:id="@+id/filter"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_alignParentBottom="true"
+        android:background="#fdfbfb"
+        android:baselineAligned="false"
+        android:elevation="8dp"
+        android:visibility="invisible">
+
+        <RelativeLayout
+            android:id="@+id/headerView"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:clickable="true"
+                android:text="Filters"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/clearAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:clickable="true"
+                android:text="CLEAR ALL"
+                android:textColor="#FF0000"
+                android:textSize="13dp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/viewHeader"
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:layout_below="@id/headerView"
+            android:background="@color/grey" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/viewHeader">
+
+            <fragment
+                android:id="@+id/fragment"
+                class="com.usomandroidproject.salujaecommerce.FilterCriteriaFragment"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5">
+
+            </fragment>
+
+            <fragment
+                android:id="@+id/fragment2"
+                class="com.usomandroidproject.salujaecommerce.FilterSubCategory"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="150dp"
+                android:layout_weight="0.5"></fragment>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/white"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/cancelApply"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="CLOSE" />
+
+            <View
+                android:id="@+id/viewApply"
+                android:layout_width="1dip"
+                android:layout_height="fill_parent"
+                android:background="@color/grey" />
+
+            <TextView
+                android:id="@+id/ApplyButton"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="APPLY" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/sortListLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#fdfbfb"
+        android:elevation="10dp"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:visibility="invisible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="SORT BY"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="@color/grey">
+
+        </View>
+
+        <ListView
+            android:id="@+id/sortListItems"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_gravity="center_vertical"
+            android:listSelector="@android:color/holo_blue_dark"
+            android:divider="@null"></ListView>
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/horizontalLine"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/sortGrid"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/icons_sort_24"
+                android:drawablePadding="-60dp"
+                android:gravity="center"
+                android:paddingLeft="40dp"
+                android:text="SORT"
+                android:textStyle="bold" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="1dip"
+                android:layout_height="fill_parent"
+                android:background="@color/grey" />
+
+            <TextView
+                android:id="@+id/filterGrid"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/icon_filter"
+                android:drawablePadding="-60dp"
+                android:gravity="center"
+                android:paddingLeft="40dp"
+                android:text="FILTER"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

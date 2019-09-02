@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".HomePage"
+    android:id="@+id/scrollView"
+    tools:showIn="@layout/app_bar_home_page">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <android.support.v7.widget.CardView
+        android:id="@+id/brandCard"
+        android:layout_width="match_parent"
+        android:layout_height="120dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Top Brands"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/cardViewRecycle"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:layout_marginTop="25dp"/>
+    </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/bannerImagesSlider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/brandCard"
+            android:layout_marginTop="5dp">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/sliderBannerRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="220dp" />
+            <!--<android.support.v7.widget.RecyclerView-->
+            <!--android:id="@+id/sliderBannerRecycler"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="220dp" />-->
+        </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@id/bannerImagesSlider"
+        android:layout_marginTop="5dp">
+
+        <ImageView
+            android:id="@+id/bannerImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"/>
+    </android.support.v7.widget.CardView>
+
+
+    <RelativeLayout
+        android:id="@+id/categoryCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/banner"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/white"
+        android:descendantFocusability="blocksDescendants">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/verticalCategorySlider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

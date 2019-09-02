@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".VerifyOtpActivity">
+
+    <ImageView
+        android:id="@+id/imageOtp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/icons8_lock_portrait_64" />
+
+    <TextView
+        android:id="@+id/otpVerificationText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageOtp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="Verify Your Mobile Number"
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title" />
+
+    <TextView
+        android:id="@+id/otptext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/otpVerificationText"
+        android:layout_centerHorizontal="true"
+        android:padding="5dp"
+        android:text=""
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Small" />
+
+    <LinearLayout
+        android:id="@+id/layout_otp"
+        android:layout_width="match_parent"
+        android:layout_height="90sp"
+        android:layout_below="@id/otptext"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <EditText
+            android:id="@+id/edittextOne"
+            android:layout_width="40sp"
+            android:layout_height="42sp"
+            android:inputType="number"
+            android:maxLength="1"
+            android:nextFocusRight="@id/editTextTwo">
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/editTextTwo"
+            android:layout_width="40sp"
+            android:layout_height="42sp"
+            android:inputType="number"
+            android:maxLength="1"
+            android:nextFocusRight="@id/editTextThree" />
+
+        <EditText
+            android:id="@+id/editTextThree"
+            android:layout_width="40sp"
+            android:layout_height="42sp"
+            android:inputType="number"
+            android:maxLength="1"
+            android:nextFocusRight="@id/editTextFour" />
+
+        <EditText
+            android:id="@+id/editTextFour"
+            android:layout_width="40sp"
+            android:layout_height="42sp"
+            android:inputType="number"
+            android:maxLength="1"
+            android:nextFocusRight="@id/editTextFour" />
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/submitotp"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_otp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="87dp"
+        android:background="#32cd32"
+        android:text="SUBMIT"
+        android:textColor="#ffffff"
+        android:textSize="20dp" />
+
+
+</RelativeLayout>

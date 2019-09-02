@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#7AA4D5</color>
+    <color name="primary_dark">#165E8B</color>
+    <color name="accent">#7AA4D5</color>
+    <color name="colorPrimary">#EDED31</color>
+    <color name="colorPrimaryDark">#D9C72C</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="blue">#0000ff</color>
+    <color name="toolbarColor">#2C3844</color>
+    <color name="grey">#E3E4E6</color>
+    <color name="seeGreen">#BB1919</color>
+    <color name="persian_green_primary">#0DAC8F</color>
+    <color name="persian_green_dark">#0A927A</color>
+    <color name="persian_green_accent">#0A927A</color>
+    <color name="buttonColor">#BB1919</color>
+
+</resources>

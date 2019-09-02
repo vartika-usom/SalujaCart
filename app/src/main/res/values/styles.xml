@@ -1,0 +1,87 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="EditText.Login" parent="Widget.AppCompat.EditText">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColorHint">@android:color/darker_gray</item>
+        <item name="colorAccent">@color/blue</item>
+        <item name="colorControlNormal">@android:color/darker_gray</item>
+        <item name="colorControlActivated">@color/blue</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="TextLabel" parent="TextAppearance.AppCompat">
+        <!-- Hint color and label color in FALSE state -->
+        <item name="android:textColorHint">@android:color/darker_gray</item>
+        <item name="android:textColor">@android:color/black</item>
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+        <item name="colorAccent">@color/blue</item>
+        <item name="colorControlNormal">@android:color/darker_gray</item>
+        <item name="colorControlActivated">@color/blue</item>
+    </style>
+
+
+    <style name="PayUMoney" parent="PayumoneyAppTheme">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@android:color/holo_orange_dark</item>
+        <item name="colorButtonNormal">@android:color/holo_orange_dark</item>
+        <item name="alertDialogTheme">@style/AlertDialogStylePayUMoney</item>
+        <item name="actionMenuTextColor">@color/white</item>
+    </style>
+
+    <style name="AppTheme.Green" parent="PayumoneyAppTheme">
+        <item name="colorPrimary">@color/persian_green_primary</item>
+        <item name="colorPrimaryDark">@color/persian_green_dark</item>
+        <item name="colorAccent">@color/persian_green_accent</item>
+        <item name="colorButtonNormal">@color/persian_green_primary</item>
+        <item name="alertDialogTheme">@style/AlertDialogStyle_green</item>
+        <item name="actionMenuTextColor">@android:color/black</item>
+    </style>
+
+    <style name="AlertDialogStyle_green" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/persian_green_accent</item>
+        <item name="android:textColorPrimary">@color/payumoney_text_color</item>
+    </style>
+
+
+    <style name="AlertDialogStylePayUMoney" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:textColorPrimary">@color/payumoney_text_color</item>
+    </style>
+
+    <style name="Theme.AppCompat.Light.NoActionBar" parent="@style/Theme.AppCompat">
+        <item name="windowNoTitle">true</item>
+        <!--<item name="android:windowFullscreen">true</item>-->
+        <item name="homeAsUpIndicator">@android:color/black</item>
+
+    </style>
+
+    <style name="Theme.AppCompat.Light.NoActionBar.FullScreen" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="error_appearance" parent="@android:style/TextAppearance">
+        <item name="android:textColor">#FF0000</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+</resources>

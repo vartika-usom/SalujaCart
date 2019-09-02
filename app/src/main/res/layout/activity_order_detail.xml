@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OrderDetailActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/iterativeLinear">
+    <TextView
+        android:id="@+id/dislayOrderDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Order Details"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/orderDetails"
+        android:background="@drawable/relative_background"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Order date"
+            android:id="@+id/orderDate"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Order #"
+            android:layout_below="@id/orderDate"
+            android:layout_marginTop="5dp"
+            android:id="@+id/orderNum"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/orderNum"
+            android:layout_marginTop="5dp"
+            android:text="Order total"
+            android:id="@+id/orderTotal"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/orderDate"
+            android:layout_marginLeft="50dp"
+            android:id="@+id/orderdateValue"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/orderNum"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/orderdateValue"
+            android:layout_marginLeft="50dp"
+            android:id="@+id/orderNumValue"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/orderTotal"
+            android:layout_below="@id/orderNumValue"
+            android:layout_marginLeft="50dp"
+            android:id="@+id/orderTotalValue"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/displayOrderSummary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/orderDetails"
+        android:text="Order Summary"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+    </LinearLayout>
+</RelativeLayout>

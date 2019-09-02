@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/headerOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageOrder"
+            android:layout_width="60dp"
+            android:layout_height="100dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="10dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_default" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_toRightOf="@+id/imageOrder"
+            android:paddingRight="5dp"
+            android:layout_marginLeft="15dp">
+
+            <TextView
+                android:id="@+id/headlineOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#000000" />
+
+            <TextView
+                android:id="@+id/qytOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/headlineOrder"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/discountPriceOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/qytOrder"
+                android:layout_marginTop="10dp"
+                android:textSize="14dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/actualPriceOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/qytOrder"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@id/discountPriceOrder"
+                android:textSize="14dp"></TextView>
+
+            <TextView
+                android:id="@+id/offerOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/qytOrder"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@id/actualPriceOrder"
+                android:textStyle="bold"
+                android:textColor="@color/seeGreen"
+                android:textSize="14dp"></TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/discountPriceOrder"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:id="@+id/deliverStatus"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/discountPriceOrder"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@id/deliverStatus"
+                android:id="@+id/deliverDate"/>
+
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/viewOrderButton"-->
+                <!--android:clickable="true"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_marginRight="10dp"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:text="Order Details"-->
+                <!--android:textStyle="bold"-->
+                <!--android:layout_below="@id/discountPriceOrder"-->
+                <!--android:textColor="#8E96C9"-->
+                <!--/>-->
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/horizontalLine"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/headerOrder"
+        android:background="@color/grey"></View>
+
+</RelativeLayout>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditProfileActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="10dp">
+
+        <TextView
+            android:id="@+id/nameTextViewEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/redbackground"
+            android:layout_marginTop="20dp"
+            android:text="Name"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+        <EditText
+            android:id="@+id/nameEditTextEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:singleLine="true"
+            android:layout_below="@id/nameTextViewEdit"
+            android:textColor="@android:color/black" />
+        <TextView
+            android:id="@+id/phoneTextViewEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nameEditTextEdit"
+            android:layout_marginTop="20dp"
+            android:text="Mobile Number*"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            />
+        <EditText
+            android:id="@+id/phoneEditTextEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/phoneTextViewEdit"
+            android:inputType="phone"
+            android:singleLine="true"
+            android:textColor="@android:color/black" />
+        <TextView
+            android:id="@+id/emailTextViewEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/phoneEditTextEdit"
+            android:layout_marginTop="20dp"
+            android:text="Email"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+        <EditText
+            android:id="@+id/emailEditTextEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Email"
+            android:inputType="textEmailAddress"
+            android:singleLine="true"
+            android:textColor="@android:color/black"
+            android:layout_below="@id/emailTextViewEdit" />
+
+        <TextView
+            android:id="@+id/passwordTextViewEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/emailEditTextEdit"
+            android:layout_marginTop="20dp"
+            android:text="Password*"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/passwordEditTextEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:layout_below="@id/passwordTextViewEdit"
+            android:inputType="textPassword"
+            android:singleLine="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/passwordTextViewEdit"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_edit_black_24dp"
+            android:id="@+id/editPasswordText"
+            android:layout_gravity="right"
+            android:clickable="true"
+            android:onClick="ConfirmPasswordDialog"/>
+
+        <Button
+            android:id="@+id/buttonCreateEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/passwordEditTextEdit"
+            android:layout_marginTop="50dp"
+            android:text="SAVE"
+            android:textColor="@color/white"
+            android:background="@color/seeGreen"/>
+    </RelativeLayout>
+
+    </RelativeLayout>

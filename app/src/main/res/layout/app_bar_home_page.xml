@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomePage">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:contentInsetStartWithNavigation="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/saluja_logo"
+                android:layout_alignParentRight="true"/>
+
+            <RelativeLayout
+                android:id="@+id/relativeSearch"
+                android:layout_width="190dp"
+                android:layout_height="match_parent">
+
+               <ImageButton
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:src="@drawable/ic_search_black_24dp"
+                   android:background="@null"
+                   android:layout_centerVertical="true"
+                   android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_marginLeft="5dp">
+
+                <ImageButton
+                    android:id="@+id/shoppingCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_shopping_cart_black_24dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/cartCount"
+                    android:layout_marginTop="5dp"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:text="0"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center"
+                    android:background="@drawable/circle" />
+
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/content_home_page" />
+
+
+</android.support.design.widget.CoordinatorLayout>

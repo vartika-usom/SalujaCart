@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_category"
+            android:icon="@drawable/icons8_category"
+            android:title="Shop by Category" />
+        <item
+            android:id="@+id/nav_order"
+            android:icon="@drawable/icons8_purchase_order"
+            android:title="Order" />
+        <item
+            android:id="@+id/nav_account"
+            android:icon="@drawable/ic_perm_identity_black_24dp"
+            android:title="Account" />
+    </group>
+
+
+    <group>
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_menu_share"
+            android:title="Share" />
+        <item
+            android:id="@+id/nav_rate"
+            android:icon="@drawable/ic_rate_review_black_24dp"
+            android:title="Rate/Review" />
+        <item
+            android:id="@+id/nav_policy"
+            android:icon="@drawable/policy"
+            android:title="Policy" />
+        <item
+            android:id="@+id/nav_aboutus"
+            android:icon="@drawable/ic_library_books_black_24dp"
+            android:title="About Us" />
+        <item
+            android:id="@+id/nav_logout"
+            android:visible="false"
+            android:icon="@drawable/icons8exit26"
+            android:title="Log Out" />
+    </group>
+
+</menu>

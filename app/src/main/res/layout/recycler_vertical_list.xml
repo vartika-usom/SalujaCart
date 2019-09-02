@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="5dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="VIVO"
+            android:textColor="@android:color/black"
+            android:layout_marginLeft="5dp"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:fontFamily="sans-serif"
+            android:id="@+id/categoryName" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="25dp"
+        android:id="@+id/recyclerElement">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:layout_marginRight="5dp"
+        android:text="View All"
+        android:textSize="15dp"
+        android:textColor="#0000FF"
+        android:id="@+id/viewAllText"
+        android:drawableRight="@drawable/ic_navigate_next_black_24dp"
+        android:clickable="true"/>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

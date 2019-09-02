@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CartListActivity"
+    android:id="@+id/cart_activity">
+
+    <RelativeLayout
+        android:id="@+id/listCartView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:layout_marginBottom="50dp">
+        <ListView
+            android:id="@+id/cartItems"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </ListView>
+    </RelativeLayout>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/listCartView"
+        android:layout_marginTop="10dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/billDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="Bill Details"
+            android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total MRP"
+            android:id="@+id/totalMrp"
+            android:layout_below="@id/billDetails"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:id="@+id/totalMrpValue"
+                android:layout_below="@id/billDetails"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total MRP"
+                android:id="@+id/bagDiscount"
+                android:layout_below="@id/totalMrp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:id="@+id/bagDiscountValue"
+                android:layout_below="@id/totalMrp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"/>
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white"
+        android:id="@+id/proceedCard">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/horizontalLine"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+
+            <RelativeLayout
+                android:id="@+id/removeCart"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:id="@+id/totalFooterAmount"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
+                    android:textSize="15dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="12sp"
+                    android:textColor="@android:color/black"
+                    android:id="@+id/discountFooterAmount"
+                    android:layout_toRightOf="@id/totalFooterAmount"
+                    android:layout_marginLeft="5dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="VIEW DETAILS"
+                    android:id="@+id/viewDetail"
+                    android:layout_below="@id/totalFooterAmount"
+                    android:textSize="10dp"
+                    android:letterSpacing="0.1"
+                    android:textStyle="bold"
+                    android:textColor="@color/seeGreen"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="5dp"/>
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="1dip"
+                android:layout_height="fill_parent"
+                android:layout_toRightOf="@+id/removeCart"
+                android:background="@color/grey" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="@color/seeGreen"
+                android:gravity="center"
+                android:text="PROCEED TO PAY"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:id="@+id/proceedToPay"/>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

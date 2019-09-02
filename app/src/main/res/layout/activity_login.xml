@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity"
+    android:focusableInTouchMode="true"
+    android:layout_gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imageLogoLogin"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:scaleType="fitXY"
+        android:background="@drawable/saluja_logo"/>
+
+    <TextView
+        android:id="@+id/textLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageLogoLogin"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="@string/logintext"
+        android:textColor="@android:color/black" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textLogin"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/loginSection">
+
+        <EditText
+            android:id="@+id/mobileLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="15sp"
+            android:focusableInTouchMode="true"
+            android:hint="Mobile number*"
+            android:theme="@style/EditText.Login"
+            style="@style/EditText.Login"
+            android:inputType="phone"
+            android:singleLine="true" />
+        <ImageView
+            android:id="@+id/clearTextLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:visibility="invisible"
+            android:background="@drawable/ic_close_black_24dp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/loginButton"
+            android:layout_below="@id/passwordLogin"
+            android:layout_marginTop="20dp"
+            android:text="LOG IN"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:background="@color/buttonColor"/>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true"
+            android:layout_below="@id/mobileLogin"
+            android:layout_marginTop="10dp"
+            android:id="@+id/passwordLogin"
+            android:theme="@style/TextLabel">
+
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true"
+                android:id="@+id/passwordActualEdit"
+                android:hint="Password*"
+                android:textSize="15sp"
+                android:inputType="textPassword"
+                android:singleLine="true" />
+
+        </android.support.design.widget.TextInputLayout>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/loginSection"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:text="FORGOT PASSWORD?"
+        android:textSize="12dp"
+        android:textColor="@android:color/black"
+        android:clickable="true"
+        android:id="@+id/forgotPassword"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/signUpRedirect"
+        android:layout_below="@id/forgotPassword"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        android:text="New to Saluja? Signup now"
+        android:textColor="@android:color/black"/>
+
+
+</RelativeLayout>

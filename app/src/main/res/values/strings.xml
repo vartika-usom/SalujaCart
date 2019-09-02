@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">SalujaCart</string>
+    <string name="logintext">Log in to get a personalized\nexperience &amp; quick checkout</string>
+    <string name="Rs">\u20B9</string>
+    <string name="search_text_hint">Search</string>
+    <string name="title_activity_home_page">HomePage</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="No_internet_message">No internet connection.\n Please turn ON your data or wifi.</string>
+    <string name="logout_msg">Are you sure want to logout?</string>
+    <string name="NoCart">There is nothing in your bag. Lets add some items.</string>
+    <string name="donePaymentButtonText">Payment Successfull</string>
+    <string name="paymentActivityTitle">Payment</string>
+    <string name="aboutus">SALUJA CART is an e-commerce company based in CHAIBASA , India. Founded by SANKET SALUJA  in 2018, the company initially focused on book sales, before expanding into other product categories such as MOBILES AND MOBILE ACCESSORIES.</string>
+</resources>
