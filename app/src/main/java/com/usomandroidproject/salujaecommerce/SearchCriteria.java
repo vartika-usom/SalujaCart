@@ -3,7 +3,7 @@ package com.usomandroidproject.salujaecommerce;
 public class SearchCriteria {
     private int id;
 
-    public SearchCriteria(int id, String title, String type) {
+    public SearchCriteria(int id, String title, int type) {
         this.id = id;
         this.title = title;
         Type = type;
@@ -25,14 +25,14 @@ public class SearchCriteria {
         this.title = title;
     }
 
-    public String getType() {
+    public int getType() {
         return Type;
     }
 
-    public void setType(String type) {
+    public void setType(int type) {
         Type = type;
     }
 
     private String title;
-    private String Type;
+    private int Type;
 }

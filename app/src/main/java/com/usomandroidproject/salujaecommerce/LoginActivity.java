@@ -1,8 +1,11 @@
 package com.usomandroidproject.salujaecommerce;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.ActionBar;
@@ -39,6 +42,9 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
@@ -169,12 +175,13 @@ public class LoginActivity extends AppCompatActivity {
 
                             JSONObject job = new JSONObject(response);
                             if (job.getBoolean("success") == true) {
+                                int count = job.getInt("UserCartDetailCount");
                                 JSONObject job1 = job.getJSONObject("user");
                                 int id = job1.getInt("Id");
                                 String name = job1.getString("FullName");
                                 String email = job1.getString("Email");
                                 String mobile = job1.getString("PhoneNumber");
-
+                                ((Cache)getApplicationContext()).setCount(count);
                                 //job1.getString("ImagePath");
 
                                 String userInfo = String.format("%s-;%s-;%s-;%s-;%s", id, name, email, mobile, password);
@@ -186,7 +193,7 @@ public class LoginActivity extends AppCompatActivity {
                                         , android.R.anim.slide_out_right);
                                 finish();
                             } else {
-                                Toast.makeText(LoginActivity.this, "Log in failed. Incorrect Password!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "Log in failed. Incorrect Mobile number and password combination!", Toast.LENGTH_SHORT).show();
                             }
                         } catch (Exception e) {
 

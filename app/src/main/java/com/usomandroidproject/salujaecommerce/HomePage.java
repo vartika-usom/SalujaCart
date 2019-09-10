@@ -1,6 +1,7 @@
 package com.usomandroidproject.salujaecommerce;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -33,6 +35,18 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
@@ -54,7 +68,7 @@ public class HomePage extends AppCompatActivity
     List<String> imageSlider;
     HashMap<Integer, List<Product>> categoryWiseProduct;
     List<Integer> categoryIds;
-    ImageView profileImage, shoppingCart;
+    ImageView profileImage, shoppingCart, searchHome;
     TextView navTextView, cartCount;
     User user;
     String userInfo = null, imgLocalPath = "", imgurl;
@@ -65,6 +79,9 @@ public class HomePage extends AppCompatActivity
     final long DELAY_MS = 500;//delay in milliseconds before task is to be executed
     final long PERIOD_MS = 3000; // time in milliseconds between successive task executions.
     NavigationView navigationView;
+    SwipeRefreshLayout swipeRefreshLayout;
+    LinearLayoutManager SliderLayoutManager,MyLayoutManager,ListLayoutManager;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,20 +91,36 @@ public class HomePage extends AppCompatActivity
         bannerImage = (ImageView) findViewById(R.id.bannerImage);
         sliderBannerRecycler = (ViewPager) findViewById(R.id.sliderBannerRecycler);
         verticalCategoryRecycler = (RecyclerView) findViewById(R.id.verticalCategorySlider);
-
+        searchHome = (ImageView) findViewById(R.id.searchHome);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
-
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
         View headerView = navigationView.getHeaderView(0);
         navTextView = (TextView) headerView.findViewById(R.id.loginTextView);
         shoppingCart = (ImageView) findViewById(R.id.shoppingCart);
         cartCount = (TextView) findViewById(R.id.cartCount);
         profileImage = (ImageView) headerView.findViewById(R.id.profileImage);
+        progressDialog = new ProgressDialog(HomePage.this);
+
+        progressDialog.setMessage("Loading....Please wait");
+        progressDialog.setCancelable(false);
         sharedPrefrences = HomePage.this
                 .getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         imgLocalPath = sharedPrefrences.getString(Config.LOGGEDINLOCALIMAGE, "");
-//        setSupportActionBar(toolbar);
 
         userInfo = BaseClass.getStringFromPreferences(HomePage.this, null, Config.USERINFO);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true);
+                if (BaseClass.checkInternetConnectivity(HomePage.this)) {
+                    //pageIndex = 0;
+                    getData();
+                } else {
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+            }
+        });
 
         if (userInfo != null) {
             user = BaseClass.convertStringToUser(userInfo);
@@ -101,6 +134,15 @@ public class HomePage extends AppCompatActivity
 
             ((Cache) getApplicationContext()).setCount(i);
         }
+
+        searchHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomePage.this, SearchviewActivity.class);
+                startActivity(intent);
+                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_in_left);
+            }
+        });
 
         navTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,22 +167,14 @@ public class HomePage extends AppCompatActivity
         MyRecyclerView = (RecyclerView) findViewById(R.id.cardViewRecycle);
         MyRecyclerView.setHasFixedSize(true);
         verticalCategoryRecycler.setHasFixedSize(true);
-        LinearLayoutManager MyLayoutManager = new LinearLayoutManager(HomePage.this);
+        MyLayoutManager = new LinearLayoutManager(HomePage.this);
         MyLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
 
-        LinearLayoutManager SliderLayoutManager = new LinearLayoutManager(HomePage.this);
+        SliderLayoutManager = new LinearLayoutManager(HomePage.this);
         SliderLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
 
-        LinearLayoutManager ListLayoutManager = new LinearLayoutManager(HomePage.this);
+        ListLayoutManager = new LinearLayoutManager(HomePage.this);
         ListLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        brandSliderList = new ArrayList<>();
-        imageSlider = new ArrayList<>();
-        categoryWiseProduct = new HashMap<>();
-        categoryIds = new ArrayList<>();
-        brandSliderList = ((Cache) getApplicationContext()).getBrandList();
-        bannerUrl = ((Cache) getApplicationContext()).getBanner();
-        imageSlider = ((Cache) getApplicationContext()).getBannerSlider();
-        categoryWiseProduct = ((Cache) getApplicationContext()).getHashMap();
 
         shoppingCart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,35 +184,12 @@ public class HomePage extends AppCompatActivity
             }
         });
 
-        categoryIds = new ArrayList<Integer>(categoryWiseProduct.keySet());
-
-        Glide.with(HomePage.this).load(bannerUrl)
-                .placeholder(R.drawable.ic_default)
-                .error(R.drawable.ic_default)
-                .diskCacheStrategy(DiskCacheStrategy.ALL).into(bannerImage);
-
-        if (brandSliderList.size() > 0 & MyRecyclerView != null) {
-            MyRecyclerView.setAdapter(new MyRecyclerAdapter(brandSliderList, HomePage.this));
-        }
-        MyRecyclerView.setLayoutManager(MyLayoutManager);
-
-        MyRecyclerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-//        if (imageSlider.size() > 0 & imageSlider != null) {
-//            sliderBannerRecycler.setAdapter(new SliderRecyclerAdapter(imageSlider, HomePage.this));
-//        }
-//
-//        sliderBannerRecycler.setLayoutManager(SliderLayoutManager);
-
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this, imageSlider);
-
-        sliderBannerRecycler.setAdapter(viewPagerAdapter);
-
+        brandSliderList = new ArrayList<>();
+        imageSlider = new ArrayList<>();
+        categoryWiseProduct = new HashMap<>();
+        categoryIds = new ArrayList<>();
+        SetHomeData();
+        verticalCategoryRecycler.setNestedScrollingEnabled(false);
         /*After setting the adapter use the timer */
         final Handler handler = new Handler();
         final Runnable Update = new Runnable() {
@@ -198,14 +209,39 @@ public class HomePage extends AppCompatActivity
             }
         }, DELAY_MS, PERIOD_MS);
 
+    }
+
+    private void SetHomeData() {
+        brandSliderList = ((Cache) getApplicationContext()).getBrandList();
+        bannerUrl = ((Cache) getApplicationContext()).getBanner();
+        imageSlider = ((Cache) getApplicationContext()).getBannerSlider();
+        categoryWiseProduct = ((Cache) getApplicationContext()).getHashMap();
+
+        categoryIds = new ArrayList<Integer>(categoryWiseProduct.keySet());
+
+        Glide.with(HomePage.this).load(bannerUrl)
+                .placeholder(R.drawable.ic_default)
+                .error(R.drawable.ic_default)
+                .diskCacheStrategy(DiskCacheStrategy.ALL).into(bannerImage);
+
+        if (brandSliderList.size() > 0 & MyRecyclerView != null) {
+            MyRecyclerView.setAdapter(new MyRecyclerAdapter(brandSliderList, HomePage.this));
+        }
+        MyRecyclerView.setLayoutManager(MyLayoutManager);
+
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this, imageSlider);
+
+        sliderBannerRecycler.setAdapter(viewPagerAdapter);
+
         if (categoryWiseProduct.size() > 0 & categoryWiseProduct != null) {
             verticalCategoryRecycler.setAdapter(new CategoryRecyclerAdapter(HomePage.this,
                     categoryWiseProduct, categoryIds));
         }
 
         verticalCategoryRecycler.setLayoutManager(ListLayoutManager);
-        verticalCategoryRecycler.setNestedScrollingEnabled(false);
 
+        if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing())
+            swipeRefreshLayout.setRefreshing(false);
     }
 
     public void updateImage() {
@@ -229,7 +265,7 @@ public class HomePage extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-           showDialogYesNo();
+            showDialogYesNo();
         }
     }
 
@@ -322,6 +358,9 @@ public class HomePage extends AppCompatActivity
 
         } else if (id == R.id.nav_policy) {
 
+            Intent intentUpdate = new Intent(HomePage.this, PolicyActivity.class);
+            startActivity(intentUpdate);
+
         } else if (id == R.id.nav_logout) {
             if (userInfo != null) {
                 AlertDialog alertDialog = new AlertDialog.Builder(HomePage.this)
@@ -347,26 +386,80 @@ public class HomePage extends AppCompatActivity
                             }
                         })
                         .setNegativeButton("No", null).show();
-            }}else if(id == R.id.nav_rate)
-            {
-                final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
-                try {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
-                } catch (android.content.ActivityNotFoundException anfe) {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
-                }
             }
-            else if(id == R.id.nav_aboutus)
-            {
-                Intent about = new Intent(HomePage.this, AboutUs.class);
-                startActivity(about);
+        } else if (id == R.id.nav_rate) {
+            final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+            try {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+            } catch (android.content.ActivityNotFoundException anfe) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
             }
+        } else if (id == R.id.nav_aboutus) {
+            Intent about = new Intent(HomePage.this, AboutUs.class);
+            startActivity(about);
+        }
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public void getData() {
+
+        progressDialog.show();
+        RequestQueue rq = Volley.newRequestQueue(HomePage.this);
+        StringRequest sr = new StringRequest(Request.Method.GET,
+                "http://salujacart.usom.co.in/Product/GetInitialLoadAppData?userId="+0,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            BaseClass.ResolveData(response, HomePage.this);
+                            progressDialog.dismiss();
+                            SetHomeData();
+                        } catch (Exception e) {
+
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                if (error instanceof TimeoutError || error instanceof NoConnectionError
+                        || error instanceof NetworkError) {
+                    Toast.makeText(HomePage.this, "Network Error", Toast.LENGTH_SHORT).show();
+                } else if (error instanceof AuthFailureError) {
+                    Toast.makeText(HomePage.this, "Authentication Failure", Toast.LENGTH_SHORT).show();
+                } else if (error instanceof ServerError) {
+                    Toast.makeText(HomePage.this, "Server Error", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(HomePage.this,
+                            "Oops. Timeout error!",
+                            Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
+        sr.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 50000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 50000;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+
+            }
+        });
+        rq.add(sr);
+    }
+
 
     @Override
     protected void onResume() {

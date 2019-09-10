@@ -21,6 +21,19 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -122,81 +135,80 @@ public class SearchviewActivity extends AppCompatActivity {
     public void searchInCity(CharSequence city) {
 
         if (city != null && !city.toString().equals("")) {
-//            RequestQueue rq = Volley.newRequestQueue(SearchviewActivity.this);
-//            StringRequest sr = new StringRequest(Request.Method.GET,
-//                    "http://newsportal.usom.co.in/News/GetCitySearch?searchText=" + city,
-//                    new Response.Listener<String>() {
-//                        @Override
-//                        public void onResponse(String response) {
-//                            try {
-//                                //progressBar.setVisibility(View.INVISIBLE);
-//                                JSONObject job = new JSONObject(response);
-//                                JSONArray cityArray = job.getJSONArray("Data");
-//                                cityList = new ArrayList<>();
-//                                for (int i = 0; i < cityArray.length(); i++) {
-//                                    JSONObject job1 = cityArray.getJSONObject(i);
-//                                    String englishTitle = job1.getString("EnglishTitle");
-//                                    String title = job1.getString("Title");
-//                                    int id = job1.getInt("Id");
-//
-//                                    cityList.add(new SearchCriteria(id, title, englishTitle));
-//                                }
-//
-//                                if(cityList.size() == 0)
-//                                {
-//                                    List<String> textNoRecord = new ArrayList<>();
-//                                    textNoRecord.add("No Record Found");
-//                                    ArrayAdapter adapter = new ArrayAdapter(SearchviewActivity.this,
-//                                            android.R.layout.simple_list_item_1, textNoRecord);
-//                                    list.setAdapter(adapter);
-//                                }
-//                                else {
-//                                    adapter = new SearchAdapter(cityList, SearchviewActivity.this);
-//                                    list.setAdapter(adapter);
-//                                }
-//
-//                            } catch (Exception e) {
-//
-//                            }
-//                        }
-//                    }, new Response.ErrorListener() {
-//                @Override
-//                public void onErrorResponse(VolleyError error) {
-//                    //progressBar.setVisibility(View.GONE);
-//                    if (error instanceof TimeoutError || error instanceof NoConnectionError
-//                            || error instanceof NetworkError) {
-//                    } else if (error instanceof AuthFailureError) {
-//                        Toast.makeText(SearchviewActivity.this, "Authentication Failure", Toast.LENGTH_SHORT).show();
-//                    } else if (error instanceof ServerError) {
-//                        Toast.makeText(SearchviewActivity.this, "Server error", Toast.LENGTH_SHORT).show();
-//                    } else {
-//                        Toast.makeText(SearchviewActivity.this,
-//                                "Oops. Timeout error!",
-//                                Toast.LENGTH_LONG).show();
-//                    }
-//
-//                }
-//            });
-//            sr.setRetryPolicy(new RetryPolicy() {
-//                @Override
-//                public int getCurrentTimeout() {
-//                    return 50000;
-//                }
-//
-//                @Override
-//                public int getCurrentRetryCount() {
-//                    return 50000;
-//                }
-//
-//                @Override
-//                public void retry(VolleyError error) throws VolleyError {
-//
-//                }
-//            });
-//            rq.add(sr);
+            RequestQueue rq = Volley.newRequestQueue(SearchviewActivity.this);
+            StringRequest sr = new StringRequest(Request.Method.GET,
+                    "http://salujacart.usom.co.in/Product/GetGlobalSearchResult?searchText=" + city,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                //progressBar.setVisibility(View.INVISIBLE);
+                                JSONObject job = new JSONObject(response);
+                                JSONArray cityArray = job.getJSONArray("data");
+                                cityList = new ArrayList<>();
+                                for (int i = 0; i < cityArray.length(); i++) {
+                                    JSONObject job1 = cityArray.getJSONObject(i);
+                                    int type = job1.getInt("ResultType");
+                                    String title = job1.getString("SearchResult");
+                                    int id = job1.getInt("Id");
+
+                                    cityList.add(new SearchCriteria(id, title, type));
+                                }
+
+                                if(cityList.size() == 0)
+                                {
+                                    List<String> textNoRecord = new ArrayList<>();
+                                    textNoRecord.add("No Record Found");
+                                    ArrayAdapter adapter = new ArrayAdapter(SearchviewActivity.this,
+                                            android.R.layout.simple_list_item_1, textNoRecord);
+                                    list.setAdapter(adapter);
+                                }
+                                else {
+                                    adapter = new SearchAdapter(cityList, SearchviewActivity.this);
+                                    list.setAdapter(adapter);
+                                }
+
+                            } catch (Exception e) {
+
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    //progressBar.setVisibility(View.GONE);
+                    if (error instanceof TimeoutError || error instanceof NoConnectionError
+                            || error instanceof NetworkError) {
+                    } else if (error instanceof AuthFailureError) {
+                        Toast.makeText(SearchviewActivity.this, "Authentication Failure", Toast.LENGTH_SHORT).show();
+                    } else if (error instanceof ServerError) {
+                        Toast.makeText(SearchviewActivity.this, "Server error", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(SearchviewActivity.this,
+                                "Oops. Timeout error!",
+                                Toast.LENGTH_LONG).show();
+                    }
+
+                }
+            });
+            sr.setRetryPolicy(new RetryPolicy() {
+                @Override
+                public int getCurrentTimeout() {
+                    return 50000;
+                }
+
+                @Override
+                public int getCurrentRetryCount() {
+                    return 50000;
+                }
+
+                @Override
+                public void retry(VolleyError error) throws VolleyError {
+
+                }
+            });
+            rq.add(sr);
         }
         if (city.toString().equals("") && preferredCityList != null) {
-            Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show();
             cityList = new ArrayList<>();
             cityList.addAll(preferredCityList);
             adapter = new SearchAdapter(cityList, this);
@@ -216,7 +228,8 @@ public class SearchviewActivity extends AppCompatActivity {
 
         if (!isPresent) {
             String value = String.format("%s-%s-%s",selectedCity.getId(),selectedCity.getTitle(),selectedCity.getType());
-            BaseClass.addFavoriteItem(this, selectedCity.toString());
+            //Toast.makeText(this, value+"", Toast.LENGTH_SHORT).show();
+            BaseClass.addFavoriteItem(this, value);
         }
 
     }
@@ -224,10 +237,20 @@ public class SearchviewActivity extends AppCompatActivity {
     public void performSelectionAction(SearchCriteria city) {
         hideSoftWindow();
         Intent intentCity = new Intent(SearchviewActivity.this, GridViewActivity.class);
-        intentCity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        intentCity.putExtra("SearchTitle", city.getTitle());
-        intentCity.putExtra("Id", city.getId());
-        intentCity.putExtra("Id", city.getType());
+        //intentCity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        switch(city.getType())
+        {
+            case 1 : intentCity.putExtra("CategoryId", city.getId());
+            break;
+
+            case 2 :
+                intentCity.putExtra("BrandId", city.getId());
+            break;
+
+            case 3 : intentCity.putExtra("ProductId", city.getId());
+            break;
+        }
+
         startActivity(intentCity);
         overridePendingTransition(android.R.anim.slide_out_right, android.R.anim.slide_out_right);
         finish();

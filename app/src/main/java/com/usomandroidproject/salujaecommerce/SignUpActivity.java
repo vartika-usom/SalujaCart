@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -38,13 +39,14 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class SignUpActivity extends AppCompatActivity {
-    TextInputEditText email,password, mobileNumber, name;
+    TextInputEditText email, password, mobileNumber, name;
     Button createAccount;
     String emailtext, passwordText, mobileNumberText, nameText;
     boolean isCreateAccount = true;
     TextInputLayout emailAddressInput, passwordInput, mobileNumberInput, fullnameInput;
     String otp = "9999", gender = "";
     ProgressDialog progressDialog;
+    TextView genderError;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,15 +58,16 @@ public class SignUpActivity extends AppCompatActivity {
         Spannable text = new SpannableString(getSupportActionBar().getTitle());
         text.setSpan(new ForegroundColorSpan(Color.BLACK), 0, text.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         getSupportActionBar().setTitle(text);
+        genderError = (TextView)findViewById(R.id.genderError);
         email = (TextInputEditText) findViewById(R.id.emailAddressText);
         password = (TextInputEditText) findViewById(R.id.passwordText);
         mobileNumber = (TextInputEditText) findViewById(R.id.phoneText);
         name = (TextInputEditText) findViewById(R.id.nameText);
         createAccount = (Button) findViewById(R.id.buttonCreate);
-        emailAddressInput = (TextInputLayout)findViewById(R.id.emailAddress);
-        passwordInput = (TextInputLayout)findViewById(R.id.password);
-        mobileNumberInput = (TextInputLayout)findViewById(R.id.mobileNumber);
-        fullnameInput = (TextInputLayout)findViewById(R.id.FullName);
+        emailAddressInput = (TextInputLayout) findViewById(R.id.emailAddress);
+        passwordInput = (TextInputLayout) findViewById(R.id.password);
+        mobileNumberInput = (TextInputLayout) findViewById(R.id.mobileNumber);
+        fullnameInput = (TextInputLayout) findViewById(R.id.FullName);
 
         progressDialog = new ProgressDialog(SignUpActivity.this);
 
@@ -82,22 +85,23 @@ public class SignUpActivity extends AppCompatActivity {
                 if (!BaseClass.isValidMail(emailtext) || TextUtils.isEmpty(emailtext)) {
                     emailAddressInput.setError("Please enter a valid email address");
                     isCreateAccount = false;
-                }
-                else if (!BaseClass.isValidMobile(mobileNumberText) || TextUtils.isEmpty(mobileNumberText)) {
+                } else if (!BaseClass.isValidMobile(mobileNumberText) || TextUtils.isEmpty(mobileNumberText)) {
                     mobileNumberInput.setError("Please enter a valid mobile number");
                     isCreateAccount = false;
-                }
-                else if(TextUtils.isEmpty(passwordText) && passwordText.length() == 6)
-                {
+                } else if (TextUtils.isEmpty(passwordText) && passwordText.length() == 6) {
                     passwordInput.setError("Please enter a password");
                     isCreateAccount = false;
                 }
-                else
+                else if(gender == "")
                 {
+                    genderError.setVisibility(View.VISIBLE);
+                    //Toast.makeText(SignUpActivity.this, "Please select gender!", Toast.LENGTH_SHORT).show();
+                    isCreateAccount = false;
+                }else {
                     isCreateAccount = true;
                 }
 
-                if(isCreateAccount) {
+                if (isCreateAccount) {
                     //otp = BaseClass.GenerateOtpAndSendMsg();
                     setData();
                 }
@@ -112,10 +116,9 @@ public class SignUpActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-               if(emailAddressInput.getError() != null && emailAddressInput.getError().length() > 0)
-               {
-                   emailAddressInput.setError(null);
-               }
+                if (emailAddressInput.getError() != null && emailAddressInput.getError().length() > 0) {
+                    emailAddressInput.setError(null);
+                }
             }
 
             @Override
@@ -132,8 +135,7 @@ public class SignUpActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(passwordInput.getError() != null && passwordInput.getError().length() > 0)
-                {
+                if (passwordInput.getError() != null && passwordInput.getError().length() > 0) {
                     passwordInput.setError(null);
                 }
             }
@@ -152,8 +154,7 @@ public class SignUpActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(mobileNumberInput.getError() != null && mobileNumberInput.getError().length() > 0)
-                {
+                if (mobileNumberInput.getError() != null && mobileNumberInput.getError().length() > 0) {
                     mobileNumberInput.setError(null);
                 }
             }
@@ -177,7 +178,7 @@ public class SignUpActivity extends AppCompatActivity {
         params.put("PhoneNumber", mobileNumberText);
         params.put("Gender", gender);
         params.put("Password", passwordText);
-        params.put("productQuantity",cartItems);
+        params.put("productQuantity", cartItems);
 
         JsonObjectRequest req = new JsonObjectRequest(URL, new JSONObject(params),
                 new Response.Listener<JSONObject>() {
@@ -186,7 +187,7 @@ public class SignUpActivity extends AppCompatActivity {
                         try {
                             progressDialog.dismiss();
 
-                            if(response.getBoolean("success") == true) {
+                            if (response.getBoolean("success") == true) {
                                 JSONObject jsonObject = response.getJSONObject("Data");
 
                                 int id = jsonObject.getInt("Id");
@@ -199,9 +200,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 overridePendingTransition(android.R.anim.slide_out_right
                                         , android.R.anim.slide_in_left);
                                 finish();
-                            }
-                            else
-                            {
+                            } else {
                                 Toast.makeText(SignUpActivity.this, "Sign up fail", Toast.LENGTH_SHORT).show();
                             }
                         } catch (Exception e) {
@@ -248,7 +247,6 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
 
-
     public void onRadioButtonClicked(View view) {
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
@@ -256,13 +254,19 @@ public class SignUpActivity extends AppCompatActivity {
         // Check which radio button was clicked
         switch (view.getId()) {
             case R.id.male:
-                if (checked)
+                if (checked) {
                     gender = "male";
-                    break;
+                    genderError.setVisibility(View.GONE);
+                }
+                break;
             case R.id.female:
-                if (checked)
+                if (checked) {
                     gender = "female";
-                    break;
+                    genderError.setVisibility(View.GONE);
+                }
+                break;
+            default:
+                gender = "";
         }
     }
 

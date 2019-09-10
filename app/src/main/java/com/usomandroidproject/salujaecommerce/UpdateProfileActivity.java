@@ -69,20 +69,11 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
         sharedPrefrences = UpdateProfileActivity.this
                 .getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        String userInfo = BaseClass.getStringFromPreferences(UpdateProfileActivity.this,
-                null, Config.USERINFO);
+
 
         imgurl = sharedPrefrences.getString(Config.LOGGEDINIMGURL, "");
         imgLocalPath = sharedPrefrences.getString(Config.LOGGEDINLOCALIMAGE, "");
-
-        if (userInfo != null) {
-            user = BaseClass.convertStringToUser(userInfo);
-            nameEditText.setText(user.getName());
-            emailEditText.setText(user.getEmail());
-            phoneEdittext.setText(user.getPhone());
-            passwordEditText.setText(user.getPassword());
-            loggedInUserId = user.getId();
-        }
+        SetUserData();
 
         Cancelbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,6 +112,26 @@ public class UpdateProfileActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SetUserData();
+    }
+
+    private void SetUserData() {
+        String userInfo = BaseClass.getStringFromPreferences(UpdateProfileActivity.this,
+                null, Config.USERINFO);
+
+        if (userInfo != null) {
+            user = BaseClass.convertStringToUser(userInfo);
+            nameEditText.setText(user.getName());
+            emailEditText.setText(user.getEmail());
+            phoneEdittext.setText(user.getPhone());
+            passwordEditText.setText(user.getPassword());
+            loggedInUserId = user.getId();
+        }
     }
 
     private boolean RequestStoragePermission() {
@@ -259,7 +270,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
         imageFilePath = image.getAbsolutePath();
 
         SharedPreferences.Editor editor = sharedPrefrences.edit();
-        Toast.makeText(context, imageFilePath+"", Toast.LENGTH_SHORT).show();
+
         editor.putString(Config.LOGGEDINLOCALIMAGE, imageFilePath);
         editor.commit();
         return image;
@@ -363,5 +374,4 @@ public class UpdateProfileActivity extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, 1);
     }
-
 }

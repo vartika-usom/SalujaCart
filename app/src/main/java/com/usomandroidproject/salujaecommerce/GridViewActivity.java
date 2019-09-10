@@ -54,10 +54,10 @@ public class GridViewActivity extends AppCompatActivity {
     ListView sortItems;
     Fragment fragment;
     ProgressDialog progressDialog;
-    String categoryId = "", brandId = "", color = "";
+    String categoryId = "", brandId = "", color = "", productId = "";
     int totalCount = 0, minPrice = 0, maxPrice = 0;
     GridView gridView;
-    int index = 0, category, brand;
+    int index = 0, category, brand, product;
     boolean isLoading = false;
     ImageView searchInGrid;
     String textToDisplay, orderBy = "";
@@ -94,8 +94,9 @@ public class GridViewActivity extends AppCompatActivity {
 
         category = getIntent().getIntExtra("CategoryId", 0);
         brand = getIntent().getIntExtra("BrandId", 0);
+        product = getIntent().getIntExtra("ProductId", 0);
         filteredIds = new ArrayList<>();
-
+        clearFilter();
         if (category != 0) {
             categoryId = String.valueOf(category);
             filteredIds.add(category);
@@ -108,6 +109,10 @@ public class GridViewActivity extends AppCompatActivity {
             ((Cache) getApplicationContext()).setFilterBrandIds(filteredIds);
 
         }
+        if (product != 0) {
+            productId = String.valueOf(product);
+        }
+
         fragment = (Fragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
         textToDisplay = getIntent().getStringExtra("HeaderTitle");
         cityNameText.setText("SALUJA PRODUCT STORE");
@@ -140,8 +145,8 @@ public class GridViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 clearFilter();
-                String[] AndroidOS = new String[] { "Category","Brand","Price","Color"};
-                ListView lv = (ListView)fragment.getView().findViewById(R.id.filterListView);
+                String[] AndroidOS = new String[]{"Category", "Brand", "Price", "Color"};
+                ListView lv = (ListView) fragment.getView().findViewById(R.id.filterListView);
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(GridViewActivity.this, android.R.layout.simple_list_item_1, AndroidOS);
                 lv.setAdapter(adapter);
 
@@ -316,14 +321,15 @@ public class GridViewActivity extends AppCompatActivity {
             }
         });
 
-//        searchInGrid.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(GridViewActivity.this, SearchviewActivity.class);
-//                startActivity(intent);
-//                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_in_left);
-//            }
-//        });
+        searchInGrid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GridViewActivity.this, SearchviewActivity.class);
+                startActivity(intent);
+                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_in_left);
+                finish();
+            }
+        });
     }
 
     public void clearFilter() {
@@ -342,8 +348,7 @@ public class GridViewActivity extends AppCompatActivity {
 
     }
 
-    public void ResetData()
-    {
+    public void ResetData() {
         FilterSubCategory listFragment = (FilterSubCategory) getSupportFragmentManager().findFragmentById(R.id.fragment2);
         List<Brand> categoryList = ((Cache) getApplicationContext()).getCategoryLit();
         List<Integer> selectedIds = ((Cache) getApplicationContext()).getFilterCategoryIds();
@@ -434,7 +439,13 @@ public class GridViewActivity extends AppCompatActivity {
 
         String url = "";
 
-        url = "http://salujacart.usom.co.in/Product/GetFilteredDataForApp?categoryIds=" + categoryId + "&&brandIds=" + brandId
+        if(color != "" && color != null)
+        {
+            color = BaseClass.colorString(color, GridViewActivity.this);
+        }
+
+        url = "http://salujacart.usom.co.in/Product/GetFilteredDataForApp?categoryIds=" + categoryId + "&&productIds="
+                + productId + "&&brandIds=" + brandId
                 + "&&color=" + color + "&&minPrice=" + minPrice + "&&maxPrice=" + maxPrice + "&&pageIndex=" + pageIndex +
                 "&&pageSize=" + 10 + "&&orderBy=" + orderBy + "&&isAscendingOrder=" + isAscending;
 //        if (isCategory) {

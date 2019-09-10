@@ -1,8 +1,11 @@
 package com.usomandroidproject.salujaecommerce;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -23,6 +26,9 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class LoadingActivity extends AppCompatActivity {
     ProgressBar progressBar;
@@ -39,6 +45,28 @@ public class LoadingActivity extends AppCompatActivity {
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         textInternet = (TextView) findViewById(R.id.internetMessage);
+
+        SharedPreferences localSharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, 0);
+        notFirstLogin = localSharedPreferences.getBoolean("firstlogin", false);
+        if (!notFirstLogin) {
+
+            FirebaseMessaging.getInstance().subscribeToTopic("salujacart")
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+
+                            String msg = getString(R.string.msg_subscribed);
+                            SharedPreferences userData = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = userData.edit();
+                            editor.putBoolean("firstlogin", true);
+                            editor.apply();
+                            if (!task.isSuccessful()) {
+                                msg = getString(R.string.msg_subscribe_failed);
+                            }
+                        }
+                    });
+            // [END subscribe_topics]
+        }
 
         final String userInfo = BaseClass.getStringFromPreferences(LoadingActivity.this, null, Config.USERINFO);
 
